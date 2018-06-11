@@ -1,20 +1,25 @@
 <?php
-  header('Access-Control-Allow-Origin: *');
-  
+  header('Access-Control-Allow-Origin: *');  
   // Maak contact met de database
   include("./connect_db.php");
+  // Include een schoonmaakfunctie.
+  include("./functions.php");
 
-  var_dump($_POST);
+  // Maak de $_POST waarden schoon.
+  $id = sanitize($_POST["id"]);
+  $residence = sanitize($_POST["residence"]);
 
-  // Selecteer alle velden uit de database
-  // $sql = "SELECT * FROM `users`";
+  // Update het residence veld in de users tabel.
+  $sql = "UPDATE `users` SET `residence` = '" . $residence . "' WHERE `id` = " + $id;
 
   // Vuur de query af op de database
-  // $result = mysqli_query($conn, $sql);
+  $result = mysqli_query($conn, $sql);
 
-  // Maak een php array ervan
-  // $records = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-  // Maak er een json string van
-  // echo json_encode($records);
+  if ($result) {
+    $message = [["message" => "Succes"]];
+    echo json_encode($message);
+  } else {
+    $message = [["message" => "Error"]];
+    echo json_encode($message);
+  }
 ?>
