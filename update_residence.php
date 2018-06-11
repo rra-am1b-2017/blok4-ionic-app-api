@@ -10,7 +10,7 @@
   $residence = sanitize($_POST["residence"]);
 
   // Update het residence veld in de users tabel.
-  $sql = "UPDATE `users` SET `residence` = '" . $residence . "' WHERE `id` = " + $id;
+  $sql = "UPDATE `users` SET `residence` = '" . $residence . "' WHERE `id` = '" . $id . "'";
 
   // Vuur de query af op de database
   $result = mysqli_query($conn, $sql);
